@@ -7,14 +7,8 @@ namespace WebAPI1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LivroController : ControllerBase
+    public class LivroController(ILivroRepositorio _livroRepositorio) : ControllerBase
     {
-        private readonly ILivroRepositorio _livrorepositorio;
-        public LivroController(ILivroRepositorio livroRepositorio)
-        {
-            _livrorepositorio = livroRepositorio;
-        }
-
         [HttpPost("Criar-Livros")]
         public ActionResult CriarLivros([FromBody] List<ResponseLivroDto> livros)
         {
@@ -40,7 +34,7 @@ namespace WebAPI1.Controllers
                 livrosModel.Add(livroModel);
             }
 
-            _livrorepositorio.Adicionar(livrosModel);
+            _livroRepositorio.Adicionar(livrosModel);
 
             return CreatedAtAction(nameof(ObterLivroPorId), new { id = livrosModel.First().Id }, livrosModel);
         }
@@ -48,7 +42,7 @@ namespace WebAPI1.Controllers
         [HttpGet("Listar-Livros")]
         public ActionResult ListarLivros()
         {
-            var listaLivros = _livrorepositorio.Listar();
+            var listaLivros = _livroRepositorio.Listar();
             if (listaLivros == null || !listaLivros.Any())
             {
                 return NotFound("Nenhum livro encontrado.");
@@ -60,7 +54,7 @@ namespace WebAPI1.Controllers
         [HttpGet("Obter-Livro-Por-Id/{id}")]
         public ActionResult ObterLivroPorId(string id)
         {
-            var livro = _livrorepositorio.ObterPorId(id);
+            var livro = _livroRepositorio.ObterPorId(id);
             if (livro == null)
             {
                 return NotFound($"Livro com ID {id} não encontrado.");
@@ -75,7 +69,7 @@ namespace WebAPI1.Controllers
             {
                 return BadRequest("O livro não pode ser nulo.");
             }
-            var livroExistente = _livrorepositorio.ObterPorId(id);
+            var livroExistente = _livroRepositorio.ObterPorId(id);
             if (livroExistente == null)
             {
                 return NotFound($"Livro com ID {id} não encontrado.");
@@ -90,19 +84,19 @@ namespace WebAPI1.Controllers
             livroExistente.Categoria = livro.Categoria;
             livroExistente.Preco = Math.Round(livro.Preco, 2);
             livroExistente.Novo = livro.Novo;
-            _livrorepositorio.Atualizar(livroExistente);
+            _livroRepositorio.Atualizar(livroExistente);
             return Ok(livroExistente);
         }
 
         [HttpDelete("Deletar-Livro-Por-Id/{id}")]
         public ActionResult DeletarLivroPorId(string id)
         {
-            var livroExistente = _livrorepositorio.ObterPorId(id);
+            var livroExistente = _livroRepositorio.ObterPorId(id);
             if (livroExistente == null)
             {
                 return NotFound($"Livro com ID {id} não encontrado.");
             }
-            _livrorepositorio.Remover(id);
+            _livroRepositorio.Remover(id);
             return NoContent();
         }
     }

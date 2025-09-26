@@ -7,17 +7,8 @@ namespace WebAPI1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LivroServicosController : ControllerBase
+    public class LivroServicosController(ILivro _livroService, ILivroRepositorio _livroRepositorio) : ControllerBase
     {
-        private readonly ILivro _livroService;
-        private readonly ILivroRepositorio _livroRepositorio;
-
-        public LivroServicosController(ILivro livroService, ILivroRepositorio livroRepositorio)
-        {
-            _livroService = livroService;
-            _livroRepositorio = livroRepositorio;
-        }
-
         [HttpPost("Emprestar-Livro-Por-Id/{id}")]
         public ActionResult EmprestarLivroPorId(string id)
         {
