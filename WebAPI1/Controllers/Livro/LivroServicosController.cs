@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI1.Dtos;
-using WebAPI1.Interfaces;
-using WebAPI1.Models;
+using WebAPI1.Interfaces.Livro;
+using WebAPI1.Models.Livro;
 
-namespace WebAPI1.Controllers
+namespace WebAPI1.Controllers.Livro
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,8 +1,8 @@
-﻿using WebAPI1.Interfaces;
-using WebAPI1.Models;
+﻿using WebAPI1.Interfaces.Livro;
+using WebAPI1.Models.Livro;
 using WebAPI1.Repositorios;
 
-namespace WebAPI1.Services
+namespace WebAPI1.Services.Livro
 {
     public class LivroService : ILivro
     {

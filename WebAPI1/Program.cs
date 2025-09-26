@@ -1,6 +1,6 @@
-using WebAPI1.Interfaces;
-using WebAPI1.Repositorios;
-using WebAPI1.Services;
+using WebAPI1.Interfaces.Livro;
+using WebAPI1.Repositorios.Livro;
+using WebAPI1.Services.Livro;
 
 var builder = WebApplication.CreateBuilder(args);
 

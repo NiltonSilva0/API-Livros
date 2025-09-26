@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace WebAPI1.Models
+namespace WebAPI1.Models.Livro
 {
     public class LivroModel
     {

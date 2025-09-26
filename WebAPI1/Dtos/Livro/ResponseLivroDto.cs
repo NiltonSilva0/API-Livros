@@ -1,4 +1,4 @@
-﻿namespace WebAPI1.Dtos
+﻿namespace WebAPI1.Dtos.Livro
 {
     public class ResponseLivroDto
     {

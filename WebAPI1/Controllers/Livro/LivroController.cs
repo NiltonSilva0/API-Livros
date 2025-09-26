@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI1.Dtos;
-using WebAPI1.Interfaces;
+using WebAPI1.Dtos.Livro;
+using WebAPI1.Interfaces.Livro;
+using WebAPI1.Models.Livro;
 
-namespace WebAPI1.Controllers
+
+namespace WebAPI1.Controllers.Livro
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -17,12 +19,12 @@ namespace WebAPI1.Controllers
                 return BadRequest("A lista de livros não pode ser nula ou vazia.");
             }
 
-            var livrosModel = new List<Models.LivroModel>();
+            var livrosModel = new List<LivroModel>();
 
             //Mapeamento de DTO para Model
             foreach (var livro in livros)
             {
-                var livroModel = new Models.LivroModel
+                var livroModel = new LivroModel
                 {
                     Titulo = livro.Titulo,
                     Autor = livro.Autor,

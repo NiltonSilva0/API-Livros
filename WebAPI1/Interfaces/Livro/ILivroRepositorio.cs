@@ -1,6 +1,6 @@
-﻿using WebAPI1.Models;
+﻿using WebAPI1.Models.Livro;
 
-namespace WebAPI1.Interfaces
+namespace WebAPI1.Interfaces.Livro
 {
     public interface ILivroRepositorio
     {
