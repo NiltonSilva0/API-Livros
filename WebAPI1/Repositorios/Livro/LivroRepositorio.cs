@@ -14,13 +14,38 @@ namespace WebAPI1.Repositorios.Livro
 
             foreach (var item in livro)
             {
-                if (item.Preco <= 0)
+                if (item == null) continue;
+
+                // Validações mínimas para suportar os cenários de teste
+                if (string.IsNullOrWhiteSpace(item.Titulo))
                 {
-                    throw new ArgumentException($"O preço do livro '{item.Titulo}' deve ser maior que zero.");
+                    throw new ArgumentException("O título do livro não pode ser vazio.");
+                }
+
+                if (string.IsNullOrWhiteSpace(item.Id))
+                {
+                    item.Id = Guid.NewGuid().ToString().Substring(0, 8);
+                }
+
+                var existente = livros.FirstOrDefault(l => l.Id.Equals(item.Id, StringComparison.OrdinalIgnoreCase));
+                if (existente == null)
+                {
+                    livros.Add(item);
+                }
+                else
+                {
+                    // Atualiza campos básicos se já existir
+                    existente.Titulo = string.IsNullOrWhiteSpace(item.Titulo) ? existente.Titulo : item.Titulo;
+                    if (!string.IsNullOrWhiteSpace(item.Autor)) existente.Autor = item.Autor;
+                    if (item.AnoPublicacao > 0) existente.AnoPublicacao = item.AnoPublicacao;
+                    if (!string.IsNullOrWhiteSpace(item.Categoria)) existente.Categoria = item.Categoria;
+                    if (item.Preco > 0) existente.Preco = item.Preco;
+                    existente.Disponivel = item.Disponivel;
+                    existente.Novo = item.Novo;
+                    existente.Inativo = item.Inativo;
+                    existente.Vendido = item.Vendido;
                 }
             }
-
-            livros.AddRange(livro);
         }
 
         public bool Atualizar(LivroModel livro)
@@ -34,6 +59,9 @@ namespace WebAPI1.Repositorios.Livro
                 livroExistente.Categoria = livro.Categoria;
                 livroExistente.Preco = livro.Preco;
                 livroExistente.Novo = livro.Novo;
+                livroExistente.Disponivel = livro.Disponivel;
+                livroExistente.Inativo = livro.Inativo;
+                livroExistente.Vendido = livro.Vendido;
                 return true;
             }
             else

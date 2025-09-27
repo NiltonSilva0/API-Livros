@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace WebAPI1.Models.Livro
 {
@@ -14,6 +15,8 @@ namespace WebAPI1.Models.Livro
         public DateTime EmprestadoEm { get; set; } = DateTime.MinValue;
         public DateTime DevolvidoEm { get; set; } = DateTime.MinValue;
         public DateTime VendidoEm { get; set; } = DateTime.MinValue;
+        [Required]
+        [Range(0.01, double.MaxValue, ErrorMessage = "O preço deve ser maior que zero.")]
         public decimal Preco { get; set; } = 0.0M;
         public bool Inativo { get; set; } = false;
         public bool Promocao { get; set; } = false;

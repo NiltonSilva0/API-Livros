@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="WebAPI1.Tests/WebAPI1.Tests.csproj" />
   <Project Path="WebAPI1/WebAPI1.csproj" />
 </Solution>
